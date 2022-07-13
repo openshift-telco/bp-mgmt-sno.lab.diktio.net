@@ -1,0 +1,21 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: sno-mgmt 
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      custom-kubelet-mem: sno-mgmt
+  kubeletConfig:
+    # unlimited Pods per core
+    podsPerCore: 0
+    # max Pods per Node (max must be less than node CIDR)
+    # For /23, the max IP available are 2^(32-23)-2 = 510
+    maxPods: 500 
+    systemReserved:
+      cpu: 2000m
+      memory: 2Gi
+
+# oc label machineconfigpool master custom-kubelet=max-pods-500
+# oc label machineconfigpool worker custom-kubelet=max-pods-500
+# oc label machineconfigpool <ran-du-mcp> custom-kubelet=max-pods-500

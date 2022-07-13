@@ -1,0 +1,10 @@
+---
+apiVersion: lvm.topolvm.io/v1alpha1
+kind: LVMCluster
+metadata:
+  name: lvmcluster-manage
+  namespace: openshift-storage
+spec:
+  storage:
+    deviceClasses:
+      - name: vg1
